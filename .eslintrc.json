@@ -1,7 +1,4 @@
 {
-    "extends": [
-        "react-app",
-        "airbnb"
-    ],
+    "extends": "react-app",
     "rules": {}
 }
