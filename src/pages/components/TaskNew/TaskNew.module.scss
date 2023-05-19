@@ -1,0 +1,11 @@
+.newItem {
+    padding: 15px;
+}
+
+.input {
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}

@@ -1,6 +1,8 @@
+import ToDoPage from "./pages/ToDoPage";
+
 function App() {
   return (
-    <div></div>
+    <ToDoPage />
   );
 }
 
