@@ -7,7 +7,7 @@ const ListControls = ({className}) => {
 
     return (
         <div className={styles.container + ` ${className}`}>
-            <span>{activeTasksCount} item{activeTasksCount > 1 && 's'} left</span>
+            <span>{activeTasksCount ? `${activeTasksCount} item${activeTasksCount > 1 ? 's' : ''}` : "No tasks"} left</span>
             <button>All</button>
             <button>Active</button>
             <button>Completed</button>

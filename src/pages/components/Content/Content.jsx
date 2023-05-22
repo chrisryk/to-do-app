@@ -8,6 +8,7 @@ import styles from './Content.module.scss'
 
 const Content = () => {
     const tasks = useSelector(state => state.tasks)
+    console.log(tasks)
 
     return (
         <div className={styles.content}>
@@ -17,7 +18,7 @@ const Content = () => {
             </Container>
             <Container>
                 <div className={styles.todoListItems}>
-                    {tasks.map(t => <TaskCreated checked={t.completed} taskDescription={t.description} />)}
+                    {tasks.map(t => <TaskCreated task={t}  key={t.id}/>)}
                 </div>
                 <ListControls className={styles.listControls} />
             </Container>
