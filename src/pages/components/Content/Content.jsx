@@ -1,14 +1,31 @@
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import Title from '../../../kit/components/Title/Title'
 import Container from '../../../kit/components/Container/Container'
 import TaskNew from '../TaskNew/TaskNew'
 import TaskCreated from '../TaskCreated/TaskCreated'
 import ListControls from '../ListControls/ListControls'
-import { useSelector } from 'react-redux'
 import styles from './Content.module.scss'
 
 const Content = () => {
     const tasks = useSelector(state => state.tasks)
-    console.log(tasks)
+    const [tasksToDisplay, setTasksToDisplay] = useState(tasks)
+    const [buttonsActivity, setButtonsActivity] = useState({
+        all: true,
+        active: false,
+        completed: false,
+    })
+
+    useEffect(() => {
+        if (buttonsActivity.all) {
+            setTasksToDisplay(tasks)
+        } else if (buttonsActivity.active) {
+            setTasksToDisplay(tasks.filter(t => !t.completed))
+        } else if (buttonsActivity.completed) {
+            setTasksToDisplay(tasks.filter(t => t.completed))
+        }
+    }, [buttonsActivity, tasks])
 
     return (
         <div className={styles.content}>
@@ -18,9 +35,9 @@ const Content = () => {
             </Container>
             <Container>
                 <div className={styles.todoListItems}>
-                    {tasks.map(t => <TaskCreated task={t}  key={t.id}/>)}
+                    {tasksToDisplay.map(t => <TaskCreated task={t}  key={t.id}/>)}
                 </div>
-                <ListControls className={styles.listControls} />
+                <ListControls buttonsActivity={buttonsActivity} setButtonsActivity={setButtonsActivity} className={styles.listControls} />
             </Container>
             <span className={styles.todoListInfo}>Drag and drop to reorder list</span>
         </div>

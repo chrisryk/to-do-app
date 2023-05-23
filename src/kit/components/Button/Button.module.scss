@@ -1,0 +1,20 @@
+@import '../../styles/colors.module.scss';
+
+.button {
+    border: none;
+    background: none;
+    color: $button-text;
+
+    &.textBold {
+        font-weight: bold;
+    }
+    
+    &.textHighlight {
+        color: $active-button-text;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $button-hover-text;
+    }
+}
