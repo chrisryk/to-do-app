@@ -39,7 +39,7 @@ const Content = () => {
                 </div>
                 <ListControls buttonsActivity={buttonsActivity} setButtonsActivity={setButtonsActivity} className={styles.listControls} />
             </Container>
-            <span className={styles.todoListInfo}>Drag and drop to reorder list</span>
+            <span className={styles.reorderListInfo}>Drag and drop to reorder list</span>
         </div>
     )
 }

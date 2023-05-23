@@ -12,9 +12,10 @@
     &.textHighlight {
         color: $active-button-text;
     }
-
+    
     &:hover {
         cursor: pointer;
         color: $button-hover-text;
+        transition: 0.2s;
     }
 }

@@ -12,10 +12,11 @@
     overflow: scroll;
 }
 
-.todoListInfo {
+.reorderListInfo {
     display: block;
     text-align: center;
     color: $secondaryText;
+    user-select: none;
 }
 
 .listControls {
