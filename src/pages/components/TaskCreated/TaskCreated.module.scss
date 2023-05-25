@@ -1,6 +1,15 @@
 @import '../../../kit/styles/colors.module.scss';
 
 .listItem {
+    display: flex;
     padding: 15px;
     border-bottom: 1px solid $border;
+}
+
+.closeIcon {
+    margin-left: auto;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

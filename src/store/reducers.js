@@ -9,7 +9,7 @@ const getTasksFromLocalStorage = () => {
 
 const initialState = {
   tasks: getTasksFromLocalStorage(),
-  nextId: 1,
+  nextId: getTasksFromLocalStorage().slice(-1)[0]?.id + 1 || 1,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -29,7 +29,8 @@ const rootReducer = (state = initialState, action) => {
         tasks: tasksAfterAdd,
         nextId: state.nextId + 1
       }
-      case 'REMOVE_TASK':
+
+    case 'REMOVE_TASK':
       const tasksAfterRemove = state.tasks.filter(task => task.id !== action.task.id)
       saveTasksToLocalStorage(tasksAfterRemove)
       
@@ -37,6 +38,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         tasks: tasksAfterRemove
       }
+
     case 'COMPLETE_TASK':
       const tasksAfterUpdate = state.tasks.map(task => {
         if (task.id === action.task.id) {
@@ -53,6 +55,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         tasks: tasksAfterUpdate
       }
+
+    case 'CLEAR_COMPLETED_TASKS':
+      const tasksAfterClear = state.tasks.filter(task => !task.completed)
+      saveTasksToLocalStorage(tasksAfterClear)
+
+      return {
+        ...state,
+        tasks: tasksAfterClear
+      }
+
     default:
       return state
   }

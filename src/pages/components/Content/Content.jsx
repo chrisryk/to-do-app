@@ -9,7 +9,7 @@ import ListControls from '../ListControls/ListControls'
 import styles from './Content.module.scss'
 
 const Content = () => {
-    const tasks = useSelector(state => state.tasks)
+    const { tasks } = useSelector(state => state)
     const [tasksToDisplay, setTasksToDisplay] = useState(tasks)
     const [buttonsActivity, setButtonsActivity] = useState({
         all: true,

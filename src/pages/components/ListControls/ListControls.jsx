@@ -1,10 +1,14 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../../kit/components/Button/Button'
 import styles from './ListControls.module.scss'
 
 const ListControls = ({ buttonsActivity, setButtonsActivity, className}) => {
     const tasks = useSelector(state => state.tasks)
     const activeTasksCount = tasks.filter(task => !task.completed).length
+    const dispatch = useDispatch()
+    const clearCompletedTasksHandler = () => {
+        dispatch({type: 'CLEAR_COMPLETED_TASKS'})
+    }
 
     const allButtonClickHandler = () => {
         setButtonsActivity(() => ({
@@ -30,6 +34,7 @@ const ListControls = ({ buttonsActivity, setButtonsActivity, className}) => {
         }))
     }
 
+
     return (
         <div className={styles.container + ` ${className}`}>
             <span className={styles.info}>{activeTasksCount ? `${activeTasksCount} item${activeTasksCount > 1 ? 's' : ''}` : "No tasks"} left</span>
@@ -37,7 +42,7 @@ const ListControls = ({ buttonsActivity, setButtonsActivity, className}) => {
                 <Button title={"All"} textBold textHighlight={buttonsActivity.all} onClickHandler={allButtonClickHandler}/>
                 <Button title={"Active"} textBold textHighlight={buttonsActivity.active} onClickHandler={activeButtonClickHandler}/>
                 <Button title={"Completed"} textBold textHighlight={buttonsActivity.completed} onClickHandler={completedButtonClickHandler}/>
-                <Button title={"Clear Completed"} textBold />
+                <Button title={"Clear Completed"} textBold onClickHandler={clearCompletedTasksHandler} />
             </div>
         </div>
     )
