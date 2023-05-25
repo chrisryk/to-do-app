@@ -10,6 +10,7 @@
     margin-right: 10px;
     vertical-align: middle;
     background-color: transparent;
+    flex-shrink: 0;
 
     &:hover {
         cursor: pointer;

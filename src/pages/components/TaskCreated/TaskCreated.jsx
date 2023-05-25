@@ -1,26 +1,24 @@
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { checkTask, removeTask } from '../../../slices/tasksSlice'
 import Checkbox from '../../../kit/components/Checkbox/Checkbox'
 import Button from '../../../kit/components/Button/Button'
 import Cross from '../../../kit/icons/Cross'
 import styles from './TaskCreated.module.scss'
 
 const TaskCreated = ({ task }) => {
-    const [taskCompleted, setTaskCompleted] = useState(task.completed)
     const dispatch = useDispatch()
     const completeTaskHandler = () => {
-        dispatch({type: 'COMPLETE_TASK', task: { completed: !taskCompleted, id: task.id }})
-        setTaskCompleted(!taskCompleted)
+        dispatch(checkTask({ completed: !task.completed, id: task.id }))
     }
-
+    
     const removeTaskHandler = () => {
-        dispatch({type: 'REMOVE_TASK', task: { id: task.id}})
+        dispatch(removeTask({ id: task.id}))
     }
 
     return (
         <div className={styles.listItem}>
-            <Checkbox checked={taskCompleted} onCheckboxClickHandler={completeTaskHandler}/>
-            <span>{task.description}</span>
+            <Checkbox checked={task.completed} onCheckboxClickHandler={completeTaskHandler}/>
+            <span className={styles.description}>{task.description}</span>
             <Button onClickHandler={removeTaskHandler}>
                 <Cross className={styles.closeIcon} />
             </Button>

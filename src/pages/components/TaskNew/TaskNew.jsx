@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { addTask } from '../../../slices/tasksSlice'
 import Checkbox from '../../../kit/components/Checkbox/Checkbox'
 import styles from './TaskNew.module.scss'
 
 const TaskNew = () => {
-    const [taskDescription, setTaskDescription] = useState()
+    const [taskDescription, setTaskDescription] = useState('')
     const [checkboxChecked, setCheckboxChecked] = useState(false)
 
     const dispatch = useDispatch()
     const addNewTaskHandler = () => {
-        dispatch({type: 'ADD_TASK', task: { description: taskDescription, completed: checkboxChecked }})
+        dispatch(addTask({ description: taskDescription, completed: checkboxChecked, deleted: false }))
     }
 
     const onChangeHandler = (event) => {

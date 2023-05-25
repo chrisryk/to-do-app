@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { clearCompletedTasks } from '../../../slices/tasksSlice'
 import Button from '../../../kit/components/Button/Button'
 import styles from './ListControls.module.scss'
 
-const ListControls = ({ buttonsActivity, setButtonsActivity, className}) => {
-    const tasks = useSelector(state => state.tasks)
+const ListControls = ({tasks, buttonsActivity, setButtonsActivity, className}) => {
     const activeTasksCount = tasks.filter(task => !task.completed).length
     const dispatch = useDispatch()
     const clearCompletedTasksHandler = () => {
-        dispatch({type: 'CLEAR_COMPLETED_TASKS'})
+        dispatch(clearCompletedTasks())
     }
 
     const allButtonClickHandler = () => {

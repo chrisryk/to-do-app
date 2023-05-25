@@ -8,8 +8,12 @@
 
 .closeIcon {
     margin-left: auto;
-
+    
     &:hover {
         cursor: pointer;
     }
+}
+
+.description {
+    word-break: break-all;
 }

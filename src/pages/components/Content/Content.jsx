@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 import Title from '../../../kit/components/Title/Title'
 import Container from '../../../kit/components/Container/Container'
 import TaskNew from '../TaskNew/TaskNew'
@@ -9,21 +9,20 @@ import ListControls from '../ListControls/ListControls'
 import styles from './Content.module.scss'
 
 const Content = () => {
-    const { tasks } = useSelector(state => state)
-    const [tasksToDisplay, setTasksToDisplay] = useState(tasks)
+    const tasks = useSelector(state => state.tasks.filter(t => !t.deleted))
     const [buttonsActivity, setButtonsActivity] = useState({
         all: true,
         active: false,
         completed: false,
     })
 
-    useEffect(() => {
+    const tasksToDisplay = useMemo(() => {
         if (buttonsActivity.all) {
-            setTasksToDisplay(tasks)
+            return tasks
         } else if (buttonsActivity.active) {
-            setTasksToDisplay(tasks.filter(t => !t.completed))
+            return tasks.filter(t => !t.completed)
         } else if (buttonsActivity.completed) {
-            setTasksToDisplay(tasks.filter(t => t.completed))
+            return tasks.filter(t => t.completed)
         }
     }, [buttonsActivity, tasks])
 
@@ -35,9 +34,9 @@ const Content = () => {
             </Container>
             <Container>
                 <div className={styles.todoListItems}>
-                    {tasksToDisplay.map(t => <TaskCreated task={t}  key={t.id}/>)}
+                    {tasksToDisplay.map(t => <TaskCreated task={t} key={t.id} />)}
                 </div>
-                <ListControls buttonsActivity={buttonsActivity} setButtonsActivity={setButtonsActivity} className={styles.listControls} />
+                <ListControls tasks={tasks} buttonsActivity={buttonsActivity} setButtonsActivity={setButtonsActivity} className={styles.listControls} />
             </Container>
             <span className={styles.reorderListInfo}>Drag and drop to reorder list</span>
         </div>
