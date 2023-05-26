@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-const saveTasksToLocalStorage = (tasks) => {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+const saveStateToLocalStorage = (state) => {
+  localStorage.setItem('state', JSON.stringify(state));
 };
 
-const getTasksFromLocalStorage = () => {
-  const tasks = localStorage.getItem('tasks');
-  return tasks ? JSON.parse(tasks) : [];
+const getStateFromLocalStorage = () => {
+  const state = localStorage.getItem('state');
+  return state ? JSON.parse(state) : [];
 };
 
 const initialState = {
-  tasks: getTasksFromLocalStorage(),
+  tasks: getStateFromLocalStorage().tasks || [],
+  tasksOrder: getStateFromLocalStorage().tasksOrder || [],
 };
 
 const tasksSlice = createSlice({
@@ -19,44 +20,65 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     addTask(state, action) {
-      state.tasks.push({ ...action.payload, id: uuidv4() });
-      saveTasksToLocalStorage(state.tasks);
+      const newId = uuidv4();
+      state.tasks.push({ ...action.payload, id: newId });
+      state.tasksOrder.push(newId);
+
+      saveStateToLocalStorage(state);
     },
     removeTask(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.tasks = state.tasks.map((task) => {
         if (task.id === action.payload.id) {
+          const index = state.tasksOrder.findIndex((taskId) => taskId === task.id);
+          if (index !== -1) {
+            state.tasksOrder.splice(index, 1);
+          }
+
           return { ...task, deleted: true };
         }
         return task;
       });
 
-      saveTasksToLocalStorage(state.tasks);
+      saveStateToLocalStorage(state.tasks);
     },
     checkTask(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.tasks = state.tasks.map((task) => {
         if (task.id === action.payload.id) {
           return { ...task, completed: !task.completed };
         }
         return task;
       });
-      saveTasksToLocalStorage(state.tasks);
+
+      saveStateToLocalStorage(state);
     },
     clearCompletedTasks(state) {
-      // eslint-disable-next-line no-param-reassign
       state.tasks = state.tasks.map((task) => {
         if (task.completed) {
+          const index = state.tasksOrder.findIndex((taskId) => taskId === task.id);
+          if (index !== -1) {
+            state.tasksOrder.splice(index, 1);
+          }
+
           return { ...task, deleted: true };
         }
         return task;
       });
-      saveTasksToLocalStorage(state.tasks);
+
+      saveStateToLocalStorage(state);
+    },
+    reorderTasks(state, action) {
+      const { source, destination } = action.payload;
+
+      const movedTaskId = state.tasksOrder[source.index];
+      state.tasksOrder.splice(source.index, 1);
+      state.tasksOrder.splice(destination.index, 0, movedTaskId);
+
+      saveStateToLocalStorage(state);
     },
   },
 });
 
 export const {
-  addTask, removeTask, checkTask, clearCompletedTasks,
+  addTask, removeTask, checkTask, clearCompletedTasks, reorderTasks,
 } = tasksSlice.actions;
 export default tasksSlice;

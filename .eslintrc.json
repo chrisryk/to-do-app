@@ -8,7 +8,9 @@
   ],
   "plugins": ["jsx-a11y"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading": 0,
+    "no-param-reassign": 0
   },
   "overrides": [
     {
@@ -21,6 +23,6 @@
   ],
   "settings": {
     // https://stackoverflow.com/questions/67587146/eslint-rxjs-operators-should-be-listed-in-the-projects-dependencies
-    "import/core-modules": ["prop-types", "uuid"]
+    "import/core-modules": ["prop-types", "uuid", "react-beautiful-dnd"]
  }
 }

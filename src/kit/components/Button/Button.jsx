@@ -19,7 +19,7 @@ Button.propTypes = {
   textBold: PropTypes.bool.isRequired,
   textHighlight: PropTypes.bool.isRequired,
   onClickHandler: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Button;
