@@ -1,4 +1,26 @@
 {
-    "extends": "react-app",
-    "rules": {}
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "airbnb"
+  ],
+  "plugins": ["jsx-a11y"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.jsx"],
+      "rules": {
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ],
+  "settings": {
+    // https://stackoverflow.com/questions/67587146/eslint-rxjs-operators-should-be-listed-in-the-projects-dependencies
+    "import/core-modules": ["prop-types", "uuid"]
+ }
 }

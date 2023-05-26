@@ -1,11 +1,25 @@
-import styles from './Button.module.scss'
+import PropTypes from 'prop-types';
+import styles from './Button.module.scss';
 
-const Button = ({ title, textBold, textHighlight, onClickHandler, children }) => {
-    const textStyles = `${textBold && styles.textBold} ${textHighlight && styles.textHighlight}`
+function Button({
+  title, textBold = false, textHighlight = false, onClickHandler, children,
+}) {
+  const textStyles = `${textBold && styles.textBold} ${textHighlight && styles.textHighlight}`;
 
-    return (
-        <button className={`${styles.button} ${textStyles}`} onClick={onClickHandler}>{title}{children}</button>
-    )
+  return (
+    <button type="button" className={`${styles.button} ${textStyles}`} onClick={onClickHandler}>
+      {title}
+      {children}
+    </button>
+  );
 }
 
-export default Button
+Button.propTypes = {
+  title: PropTypes.string.isRequired,
+  textBold: PropTypes.bool.isRequired,
+  textHighlight: PropTypes.bool.isRequired,
+  onClickHandler: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+};
+
+export default Button;

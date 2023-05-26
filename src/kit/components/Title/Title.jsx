@@ -1,9 +1,12 @@
-import styles from './Title.module.scss'
+import PropTypes from 'prop-types';
+import styles from './Title.module.scss';
 
-const Title = ({title}) => {
-    return (
-        <h1 className={styles.title}>{title}</h1>
-    )
+function Title({ title }) {
+  return <h1 className={styles.title}>{title}</h1>;
 }
 
-export default Title
+Title.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default Title;

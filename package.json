@@ -8,11 +8,13 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
     "sass": "^1.62.1",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -20,15 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint:eslint": "eslint src",
-    "lint:stylelint": "stylelint src/**/*.css",
-    "lint": "npm run lint:eslint && npm run lint:stylelint"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "lint:eslint": "eslint --fix src",
+    "lint:stylelint": "stylelint --fix \"src/**/*.scss\"",
+    "lint": "yarn lint:eslint && yarn lint:stylelint"
   },
   "browserslist": {
     "production": [
@@ -43,20 +39,16 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-airbnb": "^19.0.4",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "stylelint": "^15.6.1"
-  },
-  "lint-staged": {
-    "*.{js,jsx,json,css}": [
-      "npm run lint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "stylelint": "^15.6.2",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-scss": "^5.0.0"
   }
 }
