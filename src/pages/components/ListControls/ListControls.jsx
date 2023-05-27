@@ -5,7 +5,7 @@ import Button from '../../../kit/components/Button/Button';
 import styles from './ListControls.module.scss';
 
 const ListControls = ({
-  tasks, buttonsActivity, setButtonsActivity, className,
+  tasks, buttonsActivity: { all, active, completed }, setButtonsActivity, className,
 }) => {
   const activeTasksCount = tasks.filter((task) => !task.completed).length;
   const dispatch = useDispatch();
@@ -13,29 +13,27 @@ const ListControls = ({
     dispatch(clearCompletedTasks());
   };
 
-  const allButtonClickHandler = () => {
-    setButtonsActivity(() => ({
-      all: true,
-      active: false,
-      completed: false,
-    }));
-  };
-
-  const activeButtonClickHandler = () => {
-    setButtonsActivity(() => ({
-      all: false,
-      active: true,
-      completed: false,
-    }));
-  };
-
-  const completedButtonClickHandler = () => {
-    setButtonsActivity(() => ({
-      all: false,
-      active: false,
-      completed: true,
-    }));
-  };
+  const buttonData = [
+    {
+      title: 'All',
+      isActive: all,
+      onClick: () => setButtonsActivity({ all: true, active: false, completed: false }),
+    },
+    {
+      title: 'Active',
+      isActive: active,
+      onClick: () => setButtonsActivity({ all: false, active: true, completed: false }),
+    },
+    {
+      title: 'Completed',
+      isActive: completed,
+      onClick: () => setButtonsActivity({ all: false, active: false, completed: true }),
+    },
+    {
+      title: 'Clear Completed',
+      onClick: () => clearCompletedTasksHandler(),
+    },
+  ];
 
   return (
     <div className={`${styles.container} ${className}`}>
@@ -45,10 +43,15 @@ const ListControls = ({
         left
       </span>
       <div className={styles.buttonContainer}>
-        <Button title="All" textBold textHighlight={buttonsActivity.all} onClickHandler={allButtonClickHandler} />
-        <Button title="Active" textBold textHighlight={buttonsActivity.active} onClickHandler={activeButtonClickHandler} />
-        <Button title="Completed" textBold textHighlight={buttonsActivity.completed} onClickHandler={completedButtonClickHandler} />
-        <Button title="Clear Completed" textBold onClickHandler={clearCompletedTasksHandler} />
+        {buttonData.map(({ title, isActive, onClick }) => (
+          <Button
+            key={title}
+            title={title}
+            textBold
+            textHighlight={isActive}
+            onClickHandler={onClick}
+          />
+        ))}
       </div>
     </div>
   );

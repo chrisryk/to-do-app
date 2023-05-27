@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useMemo } from 'react';
 import { DragDropContext, Draggable } from 'react-beautiful-dnd';
-import StrictModeDroppable from './components/StrictModeDroppable/StrictModeDroppable';
+import StrictModeDroppable from '../../../kit/components/StrictModeDroppable/StrictModeDroppable';
 import { reorderTasks } from '../../../slices/tasksSlice';
 
 import Title from '../../../kit/components/Title/Title';
