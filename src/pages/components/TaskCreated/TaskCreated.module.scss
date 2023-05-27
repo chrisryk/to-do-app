@@ -11,10 +11,15 @@
     margin-left: auto;
     
     &:hover {
-        cursor: pointer;
+        transform: scale(1.5);
     }
 }
 
 .description {
     word-break: break-all;
+}
+
+.completed {
+    color: $description-completed;
+    text-decoration: line-through;
 }

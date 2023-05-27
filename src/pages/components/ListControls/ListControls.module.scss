@@ -1,3 +1,5 @@
+@import '../../../kit/styles/colors.module.scss';
+
 .container {
     display: flex;
     padding: 10px;
@@ -7,6 +9,8 @@
     width: 130px;
     cursor: default;
     user-select: none;
+    color: $secondary-text;
+    font-weight: 500;
 }
 
 .buttonContainer {

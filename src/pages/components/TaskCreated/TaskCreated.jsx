@@ -6,7 +6,7 @@ import Button from '../../../kit/components/Button/Button';
 import Cross from '../../../kit/icons/Cross';
 import styles from './TaskCreated.module.scss';
 
-function TaskCreated({ task }) {
+const TaskCreated = ({ task }) => {
   const dispatch = useDispatch();
   const completeTaskHandler = () => {
     dispatch(checkTask({ completed: !task.completed, id: task.id }));
@@ -19,13 +19,13 @@ function TaskCreated({ task }) {
   return (
     <div className={styles.listItem}>
       <Checkbox checked={task.completed} onCheckboxClickHandler={completeTaskHandler} />
-      <span className={styles.description}>{task.description}</span>
+      <span className={`${styles.description} ${task.completed && styles.completed}`}>{task.description}</span>
       <Button onClickHandler={removeTaskHandler}>
         <Cross className={styles.closeIcon} />
       </Button>
     </div>
   );
-}
+};
 
 TaskCreated.propTypes = {
   task: PropTypes.shape({

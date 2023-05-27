@@ -1,11 +1,21 @@
 .newItem {
+    display: flex;
     padding: 15px;
 }
 
 .input {
     border: none;
+    width: 100%;
 
     &:focus {
         outline: none;
+    }
+}
+
+.addIcon {
+    transform: rotate(45deg);
+
+    &:hover {
+        transform: scale(1.5) rotate(45deg);
     }
 }

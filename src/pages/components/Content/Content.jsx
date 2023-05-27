@@ -11,7 +11,7 @@ import ListControls from '../ListControls/ListControls';
 import styles from './Content.module.scss';
 import TaskCreated from '../TaskCreated/TaskCreated';
 
-function Content() {
+const Content = () => {
   const tasks = useSelector((state) => state.tasksList.tasks.filter((t) => !t.deleted));
   const tasksOrder = useSelector((state) => state.tasksList.tasksOrder);
 
@@ -101,6 +101,6 @@ function Content() {
       <span className={styles.reorderListInfo}>Drag and drop to reorder list</span>
     </div>
   );
-}
+};
 
 export default Content;

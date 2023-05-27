@@ -4,9 +4,9 @@ import { clearCompletedTasks } from '../../../slices/tasksSlice';
 import Button from '../../../kit/components/Button/Button';
 import styles from './ListControls.module.scss';
 
-function ListControls({
+const ListControls = ({
   tasks, buttonsActivity, setButtonsActivity, className,
-}) {
+}) => {
   const activeTasksCount = tasks.filter((task) => !task.completed).length;
   const dispatch = useDispatch();
   const clearCompletedTasksHandler = () => {
@@ -52,7 +52,11 @@ function ListControls({
       </div>
     </div>
   );
-}
+};
+
+ListControls.defaultProps = {
+  className: '',
+};
 
 ListControls.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.shape({
@@ -64,7 +68,7 @@ ListControls.propTypes = {
     completed: PropTypes.bool.isRequired,
   }).isRequired,
   setButtonsActivity: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default ListControls;

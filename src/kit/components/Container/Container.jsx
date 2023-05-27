@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import styles from './Container.module.scss';
 
-function Container({ className, children }) {
-  return <div className={`${styles.container} ${className}`}>{children}</div>;
-}
+const Container = ({ className, children }) => <div className={`${styles.container} ${className}`}>{children}</div>;
+
+Container.defaultProps = {
+  className: '',
+};
 
 Container.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

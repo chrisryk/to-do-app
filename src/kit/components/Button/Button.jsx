@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-function Button({
-  title, textBold = false, textHighlight = false, onClickHandler, children,
-}) {
+const Button = ({
+  title, textBold, textHighlight, onClickHandler, children,
+}) => {
   const textStyles = `${textBold && styles.textBold} ${textHighlight && styles.textHighlight}`;
 
   return (
@@ -12,12 +12,18 @@ function Button({
       {children}
     </button>
   );
-}
+};
+
+Button.defaultProps = {
+  title: '',
+  textBold: false,
+  textHighlight: false,
+};
 
 Button.propTypes = {
-  title: PropTypes.string.isRequired,
-  textBold: PropTypes.bool.isRequired,
-  textHighlight: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  textBold: PropTypes.bool,
+  textHighlight: PropTypes.bool,
   onClickHandler: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
