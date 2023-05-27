@@ -1,18 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
-
-const saveStateToLocalStorage = (state) => {
-  localStorage.setItem('state', JSON.stringify(state));
-};
-
-const getStateFromLocalStorage = () => {
-  const state = localStorage.getItem('state');
-  return state ? JSON.parse(state) : [];
-};
+import { saveTasks, loadTasks } from '../repositories/taskRepository';
 
 const initialState = {
-  tasks: getStateFromLocalStorage().tasks || [],
-  tasksOrder: getStateFromLocalStorage().tasksOrder || [],
+  tasks: loadTasks().tasks || [],
+  tasksOrder: loadTasks().tasksOrder || [],
 };
 
 const tasksSlice = createSlice({
@@ -24,7 +16,7 @@ const tasksSlice = createSlice({
       state.tasks.push({ ...action.payload, id: newId });
       state.tasksOrder.push(newId);
 
-      saveStateToLocalStorage(state);
+      saveTasks(state);
     },
     removeTask(state, action) {
       state.tasks = state.tasks.map((task) => {
@@ -39,7 +31,7 @@ const tasksSlice = createSlice({
         return task;
       });
 
-      saveStateToLocalStorage(state.tasks);
+      saveTasks(state.tasks);
     },
     checkTask(state, action) {
       state.tasks = state.tasks.map((task) => {
@@ -49,7 +41,7 @@ const tasksSlice = createSlice({
         return task;
       });
 
-      saveStateToLocalStorage(state);
+      saveTasks(state);
     },
     clearCompletedTasks(state) {
       state.tasks = state.tasks.map((task) => {
@@ -64,7 +56,7 @@ const tasksSlice = createSlice({
         return task;
       });
 
-      saveStateToLocalStorage(state);
+      saveTasks(state);
     },
     reorderTasks(state, action) {
       const { source, destination } = action.payload;
@@ -73,7 +65,7 @@ const tasksSlice = createSlice({
       state.tasksOrder.splice(source.index, 1);
       state.tasksOrder.splice(destination.index, 0, movedTaskId);
 
-      saveStateToLocalStorage(state);
+      saveTasks(state);
     },
   },
 });
