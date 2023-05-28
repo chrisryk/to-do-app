@@ -19,8 +19,12 @@ const StrictModeDroppable = ({ children, ...props }) => {
   return <Droppable {...props}>{children}</Droppable>;
 };
 
+StrictModeDroppable.defaultProps = {
+  children: undefined,
+};
+
 StrictModeDroppable.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default StrictModeDroppable;

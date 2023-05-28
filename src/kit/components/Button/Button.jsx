@@ -18,6 +18,7 @@ Button.defaultProps = {
   title: '',
   textBold: false,
   textHighlight: false,
+  children: undefined,
 };
 
 Button.propTypes = {
@@ -25,7 +26,7 @@ Button.propTypes = {
   textBold: PropTypes.bool,
   textHighlight: PropTypes.bool,
   onClickHandler: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Button;
