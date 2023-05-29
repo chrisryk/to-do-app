@@ -1,15 +1,7 @@
 .newItem {
     display: flex;
+    align-items: center;
     padding: 15px;
-}
-
-.input {
-    border: none;
-    width: 100%;
-
-    &:focus {
-        outline: none;
-    }
 }
 
 .addIcon {

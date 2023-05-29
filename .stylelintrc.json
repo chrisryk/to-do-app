@@ -1,7 +1,8 @@
 {
-    "extends": "stylelint-config-standard",
-    "plugins": [],
-    "rules": {
-        "import-notation": "string"
-    }
+  "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss"],
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "import-notation": "string",
+    "selector-class-pattern": null
+  }
 }

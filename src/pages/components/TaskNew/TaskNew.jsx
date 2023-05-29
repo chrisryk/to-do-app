@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addTask } from '../../../slices/tasksSlice';
 import Checkbox from '../../../kit/components/Checkbox/Checkbox';
 import Button from '../../../kit/components/Button/Button';
+import Input from '../../../kit/components/Input/Input';
 import Cross from '../../../kit/icons/Cross';
 import styles from './TaskNew.module.scss';
 
@@ -13,13 +14,13 @@ const TaskNew = () => {
   const dispatch = useDispatch();
   const addNewTaskHandler = () => {
     if (taskDescription) {
-      dispatch(addTask(
-        {
+      dispatch(
+        addTask({
           description: taskDescription,
           completed: checkboxChecked,
           deleted: false,
-        },
-      ));
+        }),
+      );
       setTaskDescription('');
       setCheckboxChecked(false);
     }
@@ -41,8 +42,17 @@ const TaskNew = () => {
 
   return (
     <div className={styles.newItem}>
-      <Checkbox checked={checkboxChecked} onCheckboxClickHandler={onCheckboxClickHandler} />
-      <input type="text" placeholder="Add new task" value={taskDescription} className={styles.input} onKeyDown={keyDownHandler} onChange={onChangeHandler} />
+      <Checkbox
+        checked={checkboxChecked}
+        id="new-task"
+        onCheckboxClickHandler={onCheckboxClickHandler}
+      />
+      <Input
+        placeholder="Add new task"
+        value={taskDescription}
+        onKeyDown={keyDownHandler}
+        onChange={onChangeHandler}
+      />
       <Button onClickHandler={addNewTaskHandler}>
         <Cross className={styles.addIcon} />
       </Button>

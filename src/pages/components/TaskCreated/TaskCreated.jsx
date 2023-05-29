@@ -25,6 +25,7 @@ const TaskCreated = ({ task }) => {
     <div className={styles.listItem}>
       <Checkbox
         checked={task.completed}
+        id={task.id}
         onCheckboxClickHandler={completeTaskHandler}
       />
       <span className={descriptionStyles}>{task.description}</span>
