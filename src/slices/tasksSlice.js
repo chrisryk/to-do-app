@@ -41,10 +41,23 @@ const tasksSlice = createSlice({
     reorderTasks(state, action) {
       const { source, destination } = action.payload;
 
-      const tasksArray = [...state.tasks];
-      const movedTask = tasksArray[source.index];
-      tasksArray.splice(source.index, 1);
-      tasksArray.splice(destination.index, 0, movedTask);
+      const activeTasks = state.tasks.filter((task) => !task.deleted);
+
+      const movedTask = activeTasks[source.index];
+      const remainingTasks = activeTasks.filter((task, index) => index !== source.index);
+      const reorderedTasks = [
+        ...remainingTasks.slice(0, destination.index),
+        movedTask,
+        ...remainingTasks.slice(destination.index),
+      ];
+
+      const tasksArray = state.tasks.map((task) => {
+        if (task.deleted) {
+          return task;
+        }
+        return reorderedTasks.shift();
+      });
+
       state.tasks = tasksArray;
     },
   },
