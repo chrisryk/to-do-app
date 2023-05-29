@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { clearCompletedTasks } from '../../../slices/tasksSlice';
 import Button from '../../../kit/components/Button/Button';
 import styles from './ListControls.module.scss';
@@ -7,6 +8,10 @@ import styles from './ListControls.module.scss';
 const ListControls = ({
   tasks, buttonsActivity: { all, active, completed }, setButtonsActivity, className,
 }) => {
+  const listControlsStyles = classNames(styles.container, {
+    [className]: className,
+  });
+
   const activeTasksCount = tasks.filter((task) => !task.completed).length;
   const dispatch = useDispatch();
   const clearCompletedTasksHandler = () => {
@@ -36,7 +41,7 @@ const ListControls = ({
   ];
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div className={listControlsStyles}>
       <span className={styles.info}>
         {activeTasksCount ? `${activeTasksCount} item${activeTasksCount > 1 ? 's' : ''}` : 'No tasks'}
         {' '}
