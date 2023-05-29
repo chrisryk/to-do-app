@@ -1,4 +1,6 @@
+import { configureStore } from '@reduxjs/toolkit';
 import { saveTasks, loadTasks } from './taskRepository';
+import tasksSlice from '../slices/tasksSlice';
 
 describe('taskRepository', () => {
   let setItemSpy;
@@ -20,12 +22,13 @@ describe('taskRepository', () => {
 
   describe('saveTasks', () => {
     it('should save tasks to localStorage', () => {
-      const state = {
-        tasks: [
-          { id: '1', name: 'Task 1' },
-          { id: '2', name: 'Task 2' },
-        ],
-      };
+      const store = configureStore({
+        reducer: {
+          tasksList: tasksSlice.reducer,
+        },
+      });
+
+      const state = store.getState();
 
       saveTasks(state);
 
