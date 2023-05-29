@@ -18,9 +18,22 @@ const TaskCreated = ({ task }) => {
 
   return (
     <div className={styles.listItem}>
-      <Checkbox checked={task.completed} onCheckboxClickHandler={completeTaskHandler} />
-      <span className={`${styles.description} ${task.completed && styles.completed}`}>{task.description}</span>
-      <Button onClickHandler={removeTaskHandler}>
+      <Checkbox
+        checked={task.completed}
+        onCheckboxClickHandler={completeTaskHandler}
+        data-testid="task-checkbox"
+      />
+      <span
+        className={`${styles.description} ${
+          task.completed && styles.completed
+        }`}
+      >
+        {task.description}
+      </span>
+      <Button
+        onClickHandler={removeTaskHandler}
+        data-testid="task-remove-button"
+      >
         <Cross className={styles.closeIcon} />
       </Button>
     </div>

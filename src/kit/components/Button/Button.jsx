@@ -2,12 +2,24 @@ import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
 const Button = ({
-  title, textBold, textHighlight, onClickHandler, children,
+  title,
+  textBold,
+  textHighlight,
+  onClickHandler,
+  children,
+  ...props
 }) => {
-  const textStyles = `${textBold && styles.textBold} ${textHighlight && styles.textHighlight}`;
+  const textStyles = `${textBold && styles.textBold} ${
+    textHighlight && styles.textHighlight
+  }`;
 
   return (
-    <button type="button" className={`${styles.button} ${textStyles}`} onClick={onClickHandler}>
+    <button
+      type="button"
+      className={`${styles.button} ${textStyles}`}
+      onClick={onClickHandler}
+      {...props}
+    >
       {title}
       {children}
     </button>
