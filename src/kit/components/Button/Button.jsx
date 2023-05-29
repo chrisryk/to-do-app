@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './Button.module.scss';
 
 const Button = ({
@@ -9,14 +10,15 @@ const Button = ({
   children,
   ...props
 }) => {
-  const textStyles = `${textBold && styles.textBold} ${
-    textHighlight && styles.textHighlight
-  }`;
+  const textStyles = classNames(styles.button, {
+    [styles.textBold]: textBold,
+    [styles.textHighlight]: textHighlight,
+  });
 
   return (
     <button
       type="button"
-      className={`${styles.button} ${textStyles}`}
+      className={textStyles}
       onClick={onClickHandler}
       {...props}
     >

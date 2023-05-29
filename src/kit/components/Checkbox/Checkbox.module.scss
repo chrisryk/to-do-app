@@ -1,4 +1,4 @@
-@import '../../styles/colors.module.scss';
+@import '../../styles/colors.module';
 
 .checkbox {
     position: relative;
@@ -27,4 +27,8 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.hidden {
+    display: none;
 }

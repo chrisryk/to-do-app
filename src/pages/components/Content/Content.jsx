@@ -7,37 +7,32 @@ import { reorderTasks } from '../../../slices/tasksSlice';
 import Title from '../../../kit/components/Title/Title';
 import Container from '../../../kit/components/Container/Container';
 import TaskNew from '../TaskNew/TaskNew';
-import ListControls from '../ListControls/ListControls';
+import ListControls, { allButtonTitle, activeButtonTitle, completedButtonTitle } from '../ListControls/ListControls';
 import styles from './Content.module.scss';
 import TaskCreated from '../TaskCreated/TaskCreated';
 
 const Content = () => {
   const tasks = useSelector((state) => state.tasksList.tasks.filter((t) => !t.deleted));
-  const tasksOrder = useSelector((state) => state.tasksList.tasksOrder);
 
   const dispatch = useDispatch();
-  const reorderTasksHandler = ((newTaskIds) => {
+  const reorderTasksHandler = (newTaskIds) => {
     dispatch(reorderTasks(newTaskIds));
-  });
+  };
 
-  const [buttonsActivity, setButtonsActivity] = useState({
-    all: true,
-    active: false,
-    completed: false,
-  });
+  const [activeFilter, setActiveFilter] = useState(allButtonTitle);
 
   const tasksToDisplay = useMemo(() => {
-    if (buttonsActivity.all) {
+    if (activeFilter === allButtonTitle) {
       return tasks;
     }
-    if (buttonsActivity.active) {
+    if (activeFilter === activeButtonTitle) {
       return tasks.filter((t) => !t.completed);
     }
-    if (buttonsActivity.completed) {
+    if (activeFilter === completedButtonTitle) {
       return tasks.filter((t) => t.completed);
     }
     return [];
-  }, [buttonsActivity, tasks]);
+  }, [activeFilter, tasks]);
 
   const onDragEndHandler = (result) => {
     const { source, destination } = result;
@@ -49,11 +44,10 @@ const Content = () => {
     reorderTasksHandler({ source, destination });
   };
 
-  const tasksList = tasksOrder.map((taskId, index) => {
-    const task = tasksToDisplay.find((t) => t.id === taskId);
+  const tasksList = tasks.map((taskItem, index) => {
+    const task = tasksToDisplay.find((t) => t.id === taskItem.id);
     return (
-      task
-      && (
+      task && (
         <Draggable draggableId={task.id} index={index} key={task.id}>
           {(provided) => (
             <div
@@ -67,7 +61,8 @@ const Content = () => {
             </div>
           )}
         </Draggable>
-      ));
+      )
+    );
   });
 
   return (
@@ -93,12 +88,14 @@ const Content = () => {
         </DragDropContext>
         <ListControls
           tasks={tasks}
-          buttonsActivity={buttonsActivity}
-          setButtonsActivity={setButtonsActivity}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
           className={styles.listControls}
         />
       </Container>
-      <span className={styles.reorderListInfo}>Drag and drop to reorder list</span>
+      <span className={styles.reorderListInfo}>
+        Drag and drop to reorder list
+      </span>
     </div>
   );
 };

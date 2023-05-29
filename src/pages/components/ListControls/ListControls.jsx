@@ -1,12 +1,21 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { clearCompletedTasks } from '../../../slices/tasksSlice';
 import Button from '../../../kit/components/Button/Button';
 import styles from './ListControls.module.scss';
 
+const allButtonTitle = 'All';
+const activeButtonTitle = 'Active';
+const completedButtonTitle = 'Completed';
+
 const ListControls = ({
-  tasks, buttonsActivity: { all, active, completed }, setButtonsActivity, className,
+  tasks, activeFilter, setActiveFilter, className,
 }) => {
+  const listControlsStyles = classNames(styles.container, {
+    [className]: className,
+  });
+
   const activeTasksCount = tasks.filter((task) => !task.completed).length;
   const dispatch = useDispatch();
   const clearCompletedTasksHandler = () => {
@@ -15,19 +24,19 @@ const ListControls = ({
 
   const buttonData = [
     {
-      title: 'All',
-      isActive: all,
-      onClick: () => setButtonsActivity({ all: true, active: false, completed: false }),
+      title: allButtonTitle,
+      isActive: activeFilter === allButtonTitle,
+      onClick: () => setActiveFilter(allButtonTitle),
     },
     {
-      title: 'Active',
-      isActive: active,
-      onClick: () => setButtonsActivity({ all: false, active: true, completed: false }),
+      title: activeButtonTitle,
+      isActive: activeFilter === activeButtonTitle,
+      onClick: () => setActiveFilter(activeButtonTitle),
     },
     {
-      title: 'Completed',
-      isActive: completed,
-      onClick: () => setButtonsActivity({ all: false, active: false, completed: true }),
+      title: completedButtonTitle,
+      isActive: activeFilter === completedButtonTitle,
+      onClick: () => setActiveFilter(completedButtonTitle),
     },
     {
       title: 'Clear Completed',
@@ -36,7 +45,7 @@ const ListControls = ({
   ];
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div className={listControlsStyles}>
       <span className={styles.info}>
         {activeTasksCount ? `${activeTasksCount} item${activeTasksCount > 1 ? 's' : ''}` : 'No tasks'}
         {' '}
@@ -62,16 +71,15 @@ ListControls.defaultProps = {
 };
 
 ListControls.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.shape({
-    completed: PropTypes.bool.isRequired,
-  })).isRequired,
-  buttonsActivity: PropTypes.shape({
-    all: PropTypes.bool.isRequired,
-    active: PropTypes.bool.isRequired,
-    completed: PropTypes.bool.isRequired,
-  }).isRequired,
-  setButtonsActivity: PropTypes.func.isRequired,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      completed: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
+  activeFilter: PropTypes.string.isRequired,
+  setActiveFilter: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 
+export { allButtonTitle, activeButtonTitle, completedButtonTitle };
 export default ListControls;

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { checkTask, removeTask } from '../../../slices/tasksSlice';
 import Checkbox from '../../../kit/components/Checkbox/Checkbox';
 import Button from '../../../kit/components/Button/Button';
@@ -16,24 +17,20 @@ const TaskCreated = ({ task }) => {
     dispatch(removeTask({ id: task.id }));
   };
 
+  const descriptionStyles = classNames(styles.description, {
+    [styles.completed]: task.completed,
+  });
+
   return (
     <div className={styles.listItem}>
       <Checkbox
         checked={task.completed}
+        id={task.id}
         onCheckboxClickHandler={completeTaskHandler}
         data-testid="task-checkbox"
       />
-      <span
-        className={`${styles.description} ${
-          task.completed && styles.completed
-        }`}
-      >
-        {task.description}
-      </span>
-      <Button
-        onClickHandler={removeTaskHandler}
-        data-testid="task-remove-button"
-      >
+      <span className={descriptionStyles}>{task.description}</span>
+      <Button onClickHandler={removeTaskHandler} data-testid="task-remove-button">
         <Cross className={styles.closeIcon} />
       </Button>
     </div>

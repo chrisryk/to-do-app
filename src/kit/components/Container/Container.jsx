@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './Container.module.scss';
 
-const Container = ({ className, children }) => (
-  <div className={`${styles.container} ${className}`}>{children}</div>
-);
+const Container = ({ className, children }) => {
+  const containerStyles = classNames(styles.container, {
+    [className]: className,
+  });
+
+  return <div className={containerStyles}>{children}</div>;
+};
 
 Container.defaultProps = {
   className: '',

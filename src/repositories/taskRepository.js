@@ -1,5 +1,5 @@
-const saveTasks = (tasks) => {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+const saveTasks = (state) => {
+  localStorage.setItem('tasks', JSON.stringify(state.tasks));
 };
 
 const loadTasks = () => {

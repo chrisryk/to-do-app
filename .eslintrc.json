@@ -30,6 +30,6 @@
   ],
   "settings": {
     // https://stackoverflow.com/questions/67587146/eslint-rxjs-operators-should-be-listed-in-the-projects-dependencies
-    "import/core-modules": ["prop-types", "uuid", "react-beautiful-dnd"]
+    "import/core-modules": ["prop-types", "uuid", "react-beautiful-dnd", "classnames"]
  }
 }
