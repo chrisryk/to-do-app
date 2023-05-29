@@ -4,7 +4,8 @@ import Checkbox from './Checkbox';
 
 describe('Checkbox', () => {
   it('renders icon if checked', () => {
-    render(<Checkbox checked onCheckboxClickHandler={jest.fn()} />);
+    const onCheckboxClickHandler = jest.fn();
+    render(<Checkbox checked onCheckboxClickHandler={onCheckboxClickHandler} />);
 
     const iconElement = screen.getByTestId('icon');
 
@@ -12,14 +13,15 @@ describe('Checkbox', () => {
   });
 
   it('does not render icon if not checked', () => {
-    render(<Checkbox checked={false} onCheckboxClickHandler={jest.fn()} />);
+    const onCheckboxClickHandler = jest.fn();
+    render(<Checkbox checked={false} onCheckboxClickHandler={onCheckboxClickHandler} />);
 
     const iconElement = screen.queryByTestId('icon');
 
     expect(iconElement).toBeNull();
   });
 
-  it('triggers onCheckboxClickHandler when button is clicked', async () => {
+  it('triggers onCheckboxClickHandler when checkbox is clicked', async () => {
     let checked = false;
     const onCheckboxClickHandler = () => {
       checked = !checked;
@@ -32,8 +34,8 @@ describe('Checkbox', () => {
       />,
     );
 
-    const buttonElement = container.querySelector('button');
-    userEvent.click(buttonElement);
+    const checkboxElement = container.querySelector('input');
+    userEvent.click(checkboxElement);
     rerender(
       <Checkbox
         checked={checked}

@@ -4,7 +4,11 @@ import Tick from '../../icons/Tick';
 import styles from './Checkbox.module.scss';
 
 const Checkbox = ({
-  checked, id, onCheckboxClickHandler, className, ...props
+  checked,
+  id,
+  onCheckboxClickHandler,
+  className,
+  ...props
 }) => {
   const checkboxStyles = classNames(styles.checkbox, {
     [styles.checked]: checked,
@@ -21,7 +25,7 @@ const Checkbox = ({
         className={styles.hidden}
         {...props}
       />
-      {checked && <Tick className={styles.icon} />}
+      {checked && <Tick className={styles.icon} data-testid="icon" />}
     </label>
   );
 };

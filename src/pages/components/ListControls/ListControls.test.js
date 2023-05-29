@@ -18,16 +18,16 @@ describe('ListControls', () => {
     jest.spyOn(store, 'dispatch');
   });
 
-  const buttonsActivity = { all: true, active: false, completed: false };
-  const setButtonsActivity = jest.fn();
+  const activeFilter = 'All';
+  const setActiveFilter = jest.fn();
 
   const renderListConrols = (tasks = []) => {
     render(
       <Provider store={store}>
         <ListControls
           tasks={tasks}
-          buttonsActivity={buttonsActivity}
-          setButtonsActivity={setButtonsActivity}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
         />
       </Provider>,
     );
@@ -83,25 +83,13 @@ describe('ListControls', () => {
     const clearCompletedButtonElement = screen.getByText('Clear Completed');
 
     userEvent.click(allButtonElement);
-    expect(setButtonsActivity).toHaveBeenCalledWith({
-      all: true,
-      active: false,
-      completed: false,
-    });
+    expect(setActiveFilter).toHaveBeenCalledWith('All');
 
     userEvent.click(activeButtonElement);
-    expect(setButtonsActivity).toHaveBeenCalledWith({
-      all: false,
-      active: true,
-      completed: false,
-    });
+    expect(setActiveFilter).toHaveBeenCalledWith('Active');
 
     userEvent.click(completedButtonElement);
-    expect(setButtonsActivity).toHaveBeenCalledWith({
-      all: false,
-      active: false,
-      completed: true,
-    });
+    expect(setActiveFilter).toHaveBeenCalledWith('Completed');
 
     userEvent.click(clearCompletedButtonElement);
     expect(store.dispatch).toHaveBeenCalled();

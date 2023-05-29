@@ -3,9 +3,11 @@ import userEvent from '@testing-library/user-event';
 import Button from './Button';
 
 describe('Button', () => {
+  const title = 'Test text';
+  const onClickHandler = jest.fn();
+
   it('renders correct text', () => {
-    const title = 'Test text';
-    render(<Button title={title} />);
+    render(<Button title={title} onClickHandler={onClickHandler} />);
 
     const buttonElement = screen.getByText(title);
 
@@ -22,7 +24,7 @@ describe('Button', () => {
         <span>{secondChildText}</span>
       </>
     );
-    render(<Button>{children}</Button>);
+    render(<Button onClickHandler={onClickHandler}>{children}</Button>);
 
     const firstChildElement = screen.getByText(firstChildText);
     const secondChildElement = screen.getByText(secondChildText);
@@ -32,8 +34,6 @@ describe('Button', () => {
   });
 
   it('handles onClick when button is clicked', () => {
-    const title = 'Test text';
-    const onClickHandler = jest.fn();
     render(<Button title={title} onClickHandler={onClickHandler} />);
 
     const buttonElement = screen.getByText(title);

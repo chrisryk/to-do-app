@@ -20,14 +20,19 @@ describe('taskRepository', () => {
 
   describe('saveTasks', () => {
     it('should save tasks to localStorage', () => {
-      const tasks = [
-        { id: '1', name: 'Task 1' },
-        { id: '2', name: 'Task 2' },
-      ];
+      const state = {
+        tasks: [
+          { id: '1', name: 'Task 1' },
+          { id: '2', name: 'Task 2' },
+        ],
+      };
 
-      saveTasks(tasks);
+      saveTasks(state);
 
-      expect(setItemSpy).toHaveBeenCalledWith('tasks', JSON.stringify(tasks));
+      expect(setItemSpy).toHaveBeenCalledWith(
+        'tasks',
+        JSON.stringify(state.tasks),
+      );
     });
   });
 
