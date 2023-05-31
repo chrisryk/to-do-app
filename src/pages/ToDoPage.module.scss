@@ -1,0 +1,10 @@
+@import '../kit/styles/colors.module';
+
+.pageBackground {
+    height: 100vh;
+    background-color: $page-background;
+    background-size: 100vw;
+    background-position: center 0;
+    background-image: url("../../public/images/background.jpg");
+    background-repeat: no-repeat;
+}

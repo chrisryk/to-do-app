@@ -1,0 +1,29 @@
+@import '../../../kit/styles/colors.module';
+
+.content {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.todoListItems {
+    position: relative;
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.reorderListInfo {
+    display: block;
+    text-align: center;
+    color: $secondary-text;
+    user-select: none;
+}
+
+.listControls {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid $border;
+}

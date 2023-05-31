@@ -1,0 +1,8 @@
+@import '../../styles/colors.module';
+
+.title {
+    color: $title;
+    margin: 0;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+}

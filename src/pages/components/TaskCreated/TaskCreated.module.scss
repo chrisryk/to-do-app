@@ -1,0 +1,26 @@
+@import '../../../kit/styles/colors.module';
+
+.listItem {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid $border;
+    background-color: $container-background;
+}
+
+.closeIcon {
+    margin-left: auto;
+    
+    &:hover {
+        transform: scale(1.5);
+    }
+}
+
+.description {
+    word-break: break-all;
+}
+
+.completed {
+    color: $description-completed;
+    text-decoration: line-through;
+}

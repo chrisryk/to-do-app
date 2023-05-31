@@ -1,0 +1,13 @@
+.newItem {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.addIcon {
+    transform: rotate(45deg);
+
+    &:hover {
+        transform: scale(1.5) rotate(45deg);
+    }
+}
